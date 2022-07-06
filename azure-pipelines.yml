@@ -35,11 +35,11 @@ stages:
       inputs:
         script: |
           cat > .env <<- "EOF"
-          '($PASSWORD)'
+          $(PASSWORD)
           
-          '($HOST)'
+          $(HOST)
           
-          '($PORT)'
+          $(PORT)
           EOF
         workingDirectory: '$(System.DefaultWorkingDirectory)'
     
