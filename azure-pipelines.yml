@@ -22,9 +22,9 @@ stages:
     workspace: 
       clean: all
     steps:
-    - task: DockerInstaller@0
+    - task: CmdLine@2
       inputs:
-        dockerVersion: '17.09.0-ce'
+        script: 'sudo apt install docker.io'
 
     - task: Docker@2
       inputs:
