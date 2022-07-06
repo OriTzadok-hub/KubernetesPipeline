@@ -60,6 +60,8 @@ stages:
                inputs:
                  script: |
                   docker run -d \
+                  --name=appContainer $(containerRegistery)/$(imageRepository):$(tag) \
+                  -p 8080:8080 \
                   -e PORT=$(PORT) \
                   -e HOST=$(HOST) \
                   -e PGHOST=$(PGHOST) \
@@ -72,6 +74,6 @@ stages:
                   -e NODE_ENV=$(NODE_ENV) \ 
                   -e OKTA_ORG_URL=$(OKTA_ORG_URL) \
                   -e OKTA_CLIENT_ID=$(OKTA_CLIENT_ID) \
-                  -e OKTA_CLIENT_SECRET=$(OKTA_CLIENT_SECRET) \
-                  -p 8080:8080 \
-                  --name=appContainer $(containerRegistery)/$(imageRepository):$(tag)
+                  -e OKTA_CLIENT_SECRET=$(OKTA_CLIENT_SECRET)
+                  
+                  
