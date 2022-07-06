@@ -24,7 +24,9 @@ stages:
     steps:
     - task: CmdLine@2
       inputs:
-        script: 'sudo apt install docker.io'
+        script: |
+          curl -fsSL https://get.docker.com -o get-docker.sh && \
+           sudo sh get-docker.sh
 
     - task: Docker@2
       inputs:
