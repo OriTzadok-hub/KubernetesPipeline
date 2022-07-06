@@ -32,7 +32,19 @@ stages:
         script: |
           curl -fsSL https://get.docker.com -o get-docker.sh && \
            sh get-docker.sh
+
+
+    - task: DownloadSecureFile@1
+      inputs:
+        secureFile: '.env'
       
+    - task: CopyFiles@2
+      displayName: 'Copy Files to: $(System.DefaultWorkingDirectory)'
+      inputs:
+        SourceFolder: '$(Agent.TempDirectory)'
+        Contents: .env
+        TargetFolder: '$(System.DefaultWorkingDirectory)'
+
     - task: Docker@2
       inputs:
         containerRegistry: 'RegisteryConnection'
