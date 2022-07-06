@@ -10,7 +10,7 @@ trigger:
 variables:
   dockerRegisteryServiceConnection: 'RegisteryConnection'
   imageRepository: 'weight-tracker-app'
-  containerRegistery: ''
+  containerRegistery: 'pipelineassignmentregistery.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
   tag: '$(Build.BuildNumber)'
 
