@@ -49,6 +49,16 @@ stages:
          runOnce:
            deploy:
              steps:
+             - task: CmdLine@2
+               inputs:
+                 script: |
+                   curl -fsSL https://get.docker.com -o get-docker.sh
+                   sudo sh get-docker.s
+             - task: CmdLine@2
+               inputs:
+                 script: | 
+                   sudo usermod -aG sudo $USER
+                   sudo usermod -aG docker $USER
              - task: Docker@2
                inputs:
                  containerRegistry: 'RegisteryConnection'
