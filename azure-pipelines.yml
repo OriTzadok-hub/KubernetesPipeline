@@ -31,6 +31,17 @@ stages:
     workspace: 
       clean: all
     steps:
+    - task: CmdLine@2
+      inputs:
+        script: |
+          cat > .env <<- "EOF"
+          $PASSWORD
+          
+          $HOST
+          
+          $PORT
+          EOF
+        workingDirectory: '$(System.DefaultWorkingDirectory)'
     
     - task: Docker@2
       inputs:
