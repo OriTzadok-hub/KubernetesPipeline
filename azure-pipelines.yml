@@ -59,7 +59,6 @@ stages:
              - task: CmdLine@2
                inputs:
                  script: |
-                   docker rm -f $(docker ps -qa) && \
                    docker run -d \
                    -e PORT=$(PORT) \
                    -e HOST=$(HOST) \
