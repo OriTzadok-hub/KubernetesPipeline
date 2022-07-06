@@ -14,16 +14,13 @@ variables:
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
   tag: '$(Build.BuildNumber)'
 
-pool:
-  name: MyPool
-  demands:
-   - agent.name -equals MyAgent
 
 
 stages:
 
 # Continuous Integration Process
 - stage: CI
+  pool: MyPool
   jobs:
   - job: BuildAndPushDocker
     workspace: 
