@@ -41,7 +41,7 @@ stages:
     - deployment: Deploy
       variables:
       - group:  StagingVars
-      environment: "StagingEnv"
+      environment: StagingEnv
       displayName: Deploy
       strategy:
          runOnce:
