@@ -7,6 +7,13 @@ trigger:
 - master
 - feature/*
 
+variables:
+  dockerRegisteryServiceConnection: 'RegisteryConnection'
+  imageRepository: 'weight-tracker-app'
+  containerRegistery: ''
+  dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
+  tag: '$(Build.BuildNumber)'
+
 pool:
   name: MyPool
   demands:
@@ -22,18 +29,6 @@ stages:
     workspace: 
       clean: all
     steps:
-    - task: CmdLine@2
-      inputs:
-        script: |
-          sudo usermod -aG sudo $USER && \
-          sudo usermod -aG docker $USER
-    - task: CmdLine@2
-      inputs:
-        script: |
-          curl -fsSL https://get.docker.com -o get-docker.sh && \
-           sh get-docker.sh
-
-
     - task: DownloadSecureFile@1
       inputs:
         secureFile: '.env'
@@ -47,10 +42,10 @@ stages:
 
     - task: Docker@2
       inputs:
-        containerRegistry: 'RegisteryConnection'
-        repository: 'MyRepo'
+        containerRegistry: $(dockerRegisteryServiceConnection)
+        repository: $(imageRepository)
         command: 'buildAndPush'
-        Dockerfile: '**/Dockerfile'
-        addPipelineData: false
-        addBaseImageData: false
+        Dockerfile: $(dockerfilePath)
+        tags: |
+          $(tag)
     
