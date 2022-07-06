@@ -27,6 +27,13 @@ stages:
         script: |
           curl -fsSL https://get.docker.com -o get-docker.sh && \
            sh get-docker.sh
+      
+    - task: CmdLine@2
+      inputs:
+        script: |
+          sudo groupadd docker && \
+          sudo usermod -aG docker $USER && \
+          newgrp docker
 
     - task: Docker@2
       inputs:
