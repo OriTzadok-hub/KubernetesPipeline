@@ -69,7 +69,7 @@ stages:
                    -e PGPASSWORD=$(PGPASSWORD) \
                    -e PGPORT=$(PGPORT) \
                    -e HOST_URL=$(HOST_URL) \
-                   -e COOKIE_ENCRYPT_PWD=$(COOKIE_ENCRYPT_PASSWORD) \
+                   -e COOKIE_ENCRYPT_PWD=$(COOKIE_ENCRYPT_PWD) \
                    -e NODE_ENV=$(NODE_ENV) \ 
                    -e OKTA_ORG_URL=$(OKTA_ORG_URL) \
                    -e OKTA_CLIENT_ID=$(OKTA_CLIENT_ID) \
