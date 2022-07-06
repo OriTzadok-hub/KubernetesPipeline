@@ -59,7 +59,7 @@ stages:
              - task: CmdLine@2
                inputs:
                  script: |
-                  'docker run -d --name=appContainer -p 8080:8080 -e PORT=$(PORT) -e HOST=$(HOST) -e PGHOST=$(PGHOST) -e PGUSERNAME=$(PGUSERNAME) -e PGDATABASE=$(PGDATABASE) -e PGPASSWORD=$(PGPASSWORD) -e PGPORT=$(PGPORT) -e HOST_URL=$(HOST_URL) -e COOKIE_ENCRYPT_PWD=$(COOKIE_ENCRYPT_PWD) -e NODE_ENV=$(NODE_ENV) -e OKTA_ORG_URL=$(OKTA_ORG_URL) -e OKTA_CLIENT_ID=$(OKTA_CLIENT_ID) -e OKTA_CLIENT_SECRET=$(OKTA_CLIENT_SECRET) $(containerRegistery)/$(imageRepository):$(tag)'
+                  'docker run -d --name=appContainer -p 8080:8080 -e PORT=$(PORT) -e HOST=$(HOST) -e PGHOST=$(PGHOST) -e PGUSERNAME=$(PGUSERNAME) -e PGDATABASE=$(PGDATABASE) -e PGPASSWORD=$(PGPASSWORD) -e PGPORT=$(PGPORT) -e HOST_URL=$(HOST_URL) -e COOKIE_ENCRYPT_PWD=$(COOKIE_ENCRYPT_PWD) -e NODE_ENV=$(NODE_ENV) -e OKTA_ORG_URL=$(OKTA_ORG_URL) -e OKTA_CLIENT_ID=$(OKTA_CLIENT_ID) -e OKTA_CLIENT_SECRET=$(OKTA_CLIENT_SECRET) pipelineassignmentregistery.azurecr.io/$(imageRepository):$(tag)'
                   
                   
                   
