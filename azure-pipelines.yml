@@ -49,7 +49,7 @@ stages:
       inputs:
         containerRegistry: 'RegisteryConnection'
         repository: 'MyRepo'
-        command: 'build'
+        command: 'buildAndPush'
         Dockerfile: '**/Dockerfile'
         addPipelineData: false
         addBaseImageData: false
