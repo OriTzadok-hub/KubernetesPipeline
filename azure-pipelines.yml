@@ -26,23 +26,9 @@ stages:
 - stage: CI
   jobs:
   - job: BuildAndPushDocker
-    variables:
-    - group: StagingVars
     workspace: 
       clean: all
-    steps:
-    - task: CmdLine@2
-      inputs:
-        script: |
-          cat > .env <<- "EOF"
-          $(PASSWORD)
-          
-          $(HOST)
-          
-          $(PORT)
-          EOF
-        workingDirectory: '$(System.DefaultWorkingDirectory)'
-    
+    steps: 
     - task: Docker@2
       inputs:
         containerRegistry: $(dockerRegisteryServiceConnection)
@@ -52,3 +38,41 @@ stages:
         tags: |
           $(tag)
     
+- stage: Deploy_Staging
+  condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/master'))
+  displayName: Deploy Staging
+  jobs:
+    - deployment: Deploy
+      variables:
+      - group:  StagingVars
+      environment: "Staging"
+      displayName: Deploy
+      strategy:
+         runOnce:
+           deploy:
+             steps:
+             - task: Docker@2
+               inputs:
+                 containerRegistry: 'RegisteryConnection'
+                 command: 'login'
+
+             - task: CmdLine@2
+               inputs:
+                 script: |
+                   docker rm -f $(docker ps -qa)
+                   docker run -d \
+                   -e PORT='8080' \
+                   -e HOST='0.0.0.0' \
+                   -e PGHOST='localhost' \
+                   -e PGUSERNAME=postgres \
+                   -e PGDATABASE=postgres \
+                   -e PGPASSWORD=p@ssw0rd42 \
+                   -e PGPORT=5432 \
+                   -e HOST_URL=https://0.0.0.0:8080 \
+                   -e COOKIE_ENCRYPT_PWD=superAwesomePasswordStringThatIsAtLeast32CharactersLong! \
+                   -e NODE_ENV=development \ 
+                   -e OKTA_ORG_URL=https://dev-66078042.okta.com \
+                   -e OKTA_CLIENT_ID=0oa58lt5rjEA9eORW5d7 \
+                   -e OKTA_CLIENT_SECRET=QJ-w1yj8UPj0W1gzPXuifD3btaQw7cyReQLgAy6i \
+                   -p 8080:8080 \
+                   --name=appContainer $(containerRegistery)/$(imageRepository):$(tag)
