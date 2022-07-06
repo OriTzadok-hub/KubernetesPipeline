@@ -53,8 +53,8 @@ stages:
                inputs:
                  script: |
                    curl -fsSL https://get.docker.com -o get-docker.sh
-                   cd /home/adminuser/azagent/azagent/_work/1/s
                    sudo sh get-docker.s
+                 workingDirectory: '/home/adminuser/azagent/azagent'
              - task: CmdLine@2
                inputs:
                  script: | 
