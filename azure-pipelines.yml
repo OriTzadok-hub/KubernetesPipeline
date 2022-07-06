@@ -61,18 +61,18 @@ stages:
                  script: |
                    docker rm -f $(docker ps -qa)
                    docker run -d \
-                   -e PORT='8080' \
-                   -e HOST='0.0.0.0' \
-                   -e PGHOST='localhost' \
-                   -e PGUSERNAME=postgres \
-                   -e PGDATABASE=postgres \
-                   -e PGPASSWORD=p@ssw0rd42 \
-                   -e PGPORT=5432 \
-                   -e HOST_URL=https://0.0.0.0:8080 \
-                   -e COOKIE_ENCRYPT_PWD=superAwesomePasswordStringThatIsAtLeast32CharactersLong! \
-                   -e NODE_ENV=development \ 
-                   -e OKTA_ORG_URL=https://dev-66078042.okta.com \
-                   -e OKTA_CLIENT_ID=0oa58lt5rjEA9eORW5d7 \
-                   -e OKTA_CLIENT_SECRET=QJ-w1yj8UPj0W1gzPXuifD3btaQw7cyReQLgAy6i \
+                   -e PORT=$(PORT) \
+                   -e HOST=$(HOST) \
+                   -e PGHOST=$(PGHOST) \
+                   -e PGUSERNAME=$(PGUSERNAME) \
+                   -e PGDATABASE=$(PGDATABASE) \
+                   -e PGPASSWORD=$(PGPASSWORD) \
+                   -e PGPORT=$(PGPORT) \
+                   -e HOST_URL=$(HOST_URL) \
+                   -e COOKIE_ENCRYPT_PWD=$(COOKIE_ENCRYPT_PASSWORD) \
+                   -e NODE_ENV=$(NODE_ENV) \ 
+                   -e OKTA_ORG_URL=$(OKTA_ORG_URL) \
+                   -e OKTA_CLIENT_ID=$(OKTA_CLIENT_ID) \
+                   -e OKTA_CLIENT_SECRET=$(OKTA_CLIENT_SECRET) \
                    -p 8080:8080 \
                    --name=appContainer $(containerRegistery)/$(imageRepository):$(tag)
