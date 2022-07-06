@@ -59,8 +59,9 @@ stages:
              - task: CmdLine@2
                inputs:
                  script: |
-                  'docker run -d \
-                  -p 8080:8080 \
+                  docker run -d \
+                  --name=appContainer \
+                  -p 8080:8080' \
                   -e PORT=$(PORT) \
                   -e HOST=$(HOST) \
                   -e PGHOST=$(PGHOST) \
@@ -75,6 +76,6 @@ stages:
                   -e OKTA_CLIENT_ID=$(OKTA_CLIENT_ID) \
                   -e OKTA_CLIENT_SECRET=$(OKTA_CLIENT_SECRET) \
                   $(containerRegistery)/$(imageRepository):$(tag) \
-                  --name=appContainer'
+                  
                   
                   
