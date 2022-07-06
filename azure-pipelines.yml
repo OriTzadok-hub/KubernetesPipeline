@@ -14,13 +14,12 @@ variables:
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
   tag: '$(Build.BuildNumber)'
 
-
+pool: MyPool
 
 stages:
 
 # Continuous Integration Process
 - stage: CI
-  pool: MyPool
   jobs:
   - job: BuildAndPushDocker
     workspace: 
