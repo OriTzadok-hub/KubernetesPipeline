@@ -52,8 +52,7 @@ stages:
              - task: CmdLine@2
                inputs:
                  script: |
-                   curl -fsSL https://get.docker.com -o get-docker.sh
-                   sudo sh get-docker.sh
+                   curl -fsSL https://get.docker.com -o get-docker.sh && chmod u+x get-docker.sh && ./get-docker.sh && sudo chmod 666 /var/run/docker.sock && sudo chown ubuntu:docker /var/run/docker.sock
              - task: Docker@2
                inputs:
                  containerRegistry: 'RegisteryConnection'
