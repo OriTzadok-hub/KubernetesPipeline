@@ -56,7 +56,7 @@ stages:
                    sudo sh get-docker.sh
              - task: CmdLine@2
                inputs:
-                 script: 'sudo docker login $(containerRegistery)'
+                 script: 'sudo docker login -u oriTzadok@outlook.co.il -p turh8608 $(containerRegistery)'
 
              - task: CmdLine@2
                inputs:
