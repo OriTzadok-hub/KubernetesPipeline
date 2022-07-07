@@ -60,7 +60,7 @@ stages:
                  command: 'login'
              - task: CmdLine@2
                inputs:
-                 script: 'docker pull $(containerRegistery)/$(imageRepository):$(tag)'
+                 script: 'sudo docker pull $(containerRegistery)/$(imageRepository):$(tag)'
              - task: CmdLine@2
                inputs:
                  script: |
