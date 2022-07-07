@@ -54,6 +54,7 @@ stages:
                  script: |
                    curl -fsSL https://get.docker.com -o get-docker.sh && chmod u+x get-docker.sh && ./get-docker.sh && sudo chmod 666 /var/run/docker.sock && sudo chown adminuser:docker /var/run/docker.sock
              - task: Docker@2
+               displayName: Connect to Azure Container Repo
                inputs:
                  containerRegistry: 'RegisteryConnection'
                  command: 'login'
