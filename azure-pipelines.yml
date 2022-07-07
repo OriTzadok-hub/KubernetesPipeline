@@ -54,9 +54,10 @@ stages:
                  script: |
                    curl -fsSL https://get.docker.com -o get-docker.sh
                    sudo sh get-docker.sh
-             - task: CmdLine@2
+             - task: Docker@2
                inputs:
-                 script: 'az acr login --name RegisteryConnection --expose-token'
+                 containerRegistry: 'RegisteryConnection'
+                 command: 'login'
              - task: CmdLine@2
                inputs:
                  script: |
