@@ -11,4 +11,6 @@ RUN apk update && \
     npm install && \
     npm install dotenv
 
+CMD npm run initdb
+
 CMD npm run dev
