@@ -57,8 +57,12 @@ stages:
                inputs:
                  containerRegistry: 'RegisteryConnection'
                  command: 'login'
-             
              - task: CmdLine@2
+               displayName: Pull image
+               inputs:
+                 script: 'docker pull $(containerRegistery)/$(imageRepository):$(tag)'
+             - task: CmdLine@2
+               displayName: Delete previous containers and run a new one
                inputs:
                  script: |
                   sudo docker rm -f $(docker ps -qa)
