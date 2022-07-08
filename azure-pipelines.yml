@@ -26,7 +26,7 @@ stages:
       clean: all
     steps: 
     - task: Docker@2
-      condition: eq(variables['Build.SourceBranch'], 'refs/heads/main')
+      condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
       inputs:
         containerRegistry: $(dockerRegisteryServiceConnection)
         repository: $(imageRepository)
@@ -35,7 +35,7 @@ stages:
         tags: |
           $(tag)
     - task: Docker@2
-      condition: ne(variables['Build.SourceBranch'], 'refs/heads/main')
+      condition: ne(variables['Build.SourceBranch'], 'refs/heads/master')
       inputs:
         command: 'build'
         Dockerfile: '**/Dockerfile'
