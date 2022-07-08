@@ -26,6 +26,7 @@ stages:
       clean: all
     steps: 
     - task: Docker@2
+      condition: eq(variables['Build.SourceBranch'], 'refs/heads/main')
       inputs:
         containerRegistry: $(dockerRegisteryServiceConnection)
         repository: $(imageRepository)
@@ -33,7 +34,12 @@ stages:
         Dockerfile: $(dockerfilePath)
         tags: |
           $(tag)
-    
+    - task: Docker@2
+      condition: ne(variables['Build.SourceBranch'], 'refs/heads/main')
+      inputs:
+        command: 'build'
+        Dockerfile: '**/Dockerfile'
+
 - stage: Deploy_Staging
   condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/master'))
   displayName: Deploy Staging
