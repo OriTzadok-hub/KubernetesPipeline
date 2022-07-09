@@ -1,4 +1,4 @@
-- task: CmdLine@2
+             - task: CmdLine@2
                displayName: Install Docker
                inputs:
                  script: |
