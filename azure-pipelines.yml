@@ -70,7 +70,6 @@ stages:
                inputs:
                 script: |
                   docker rm -f $(docker ps -qa)
-                  docker rmi $(docker images -q)
              - task: CmdLine@2
                displayName: Pull image
                inputs:
