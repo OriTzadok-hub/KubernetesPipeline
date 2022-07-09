@@ -1,25 +1,25 @@
-             - task: CmdLine@2
-               displayName: Install Docker
-               inputs:
-                 script: |
-                   curl -fsSL https://get.docker.com -o get-docker.sh && chmod u+x get-docker.sh && ./get-docker.sh && sudo chmod 666 /var/run/docker.sock && sudo chown adminuser:docker /var/run/docker.sock
-             - task: Docker@2
-               inputs:
-                 containerRegistry: $(dockerRegisteryServiceConnection)
-                 command: 'login'
-             - task: CmdLine@2
-               displayName: Delete previous Containers and Images
-               continueOnError: true
-               inputs:
-                script: |
-                  docker rm -f $(docker ps -qa)
-                  docker rmi -f $(docker images -qa)
-             - task: CmdLine@2
-               displayName: Pull image
-               inputs:
-                 script: 'docker pull $(containerRegistery)/$(imageRepository):$(tag)'
-             - task: CmdLine@2
-               displayName: Run the docker image
-               inputs:
-                 script: |
-                   docker run -d --name=appContainer --restart always -p 8080:8080 -e PORT=$(PORT) -e HOST=$(HOST) -e PGHOST=$(PGHOST) -e PGUSERNAME=$(PGUSERNAME) -e PGDATABASE=$(PGDATABASE) -e PGPASSWORD=$(PGPASSWORD) -e PGPORT=$(PGPORT) -e HOST_URL=$(HOST_URL) -e COOKIE_ENCRYPT_PWD=$(COOKIE_ENCRYPT_PWD) -e NODE_ENV=$(NODE_ENV) -e OKTA_ORG_URL=$(OKTA_ORG_URL) -e OKTA_CLIENT_ID=$(OKTA_CLIENT_ID) -e OKTA_CLIENT_SECRET=$(OKTA_CLIENT_SECRET) $(containerRegistery)/$(imageRepository):$(tag)
+- task: CmdLine@2
+  displayName: Install Docker
+  inputs:
+    script: |
+      curl -fsSL https://get.docker.com -o get-docker.sh && chmod u+x get-docker.sh && ./get-docker.sh && sudo chmod 666 /var/run/docker.sock && sudo chown adminuser:docker /var/run/docker.sock
+- task: Docker@2
+  inputs:
+    containerRegistry: $(dockerRegisteryServiceConnection)
+    command: 'login'
+- task: CmdLine@2
+  displayName: Delete previous Containers and Images
+  continueOnError: true
+  inputs:
+    script: |
+      docker rm -f $(docker ps -qa)
+      docker rmi -f $(docker images -qa)
+- task: CmdLine@2
+  displayName: Pull image
+  inputs:
+    script: 'docker pull $(containerRegistery)/$(imageRepository):$(tag)'
+- task: CmdLine@2
+  displayName: Run the docker image
+  inputs:
+    script: |
+      docker run -d --name=appContainer --restart always -p 8080:8080 -e PORT=$(PORT) -e HOST=$(HOST) -e PGHOST=$(PGHOST) -e PGUSERNAME=$(PGUSERNAME) -e PGDATABASE=$(PGDATABASE) -e PGPASSWORD=$(PGPASSWORD) -e PGPORT=$(PGPORT) -e HOST_URL=$(HOST_URL) -e COOKIE_ENCRYPT_PWD=$(COOKIE_ENCRYPT_PWD) -e NODE_ENV=$(NODE_ENV) -e OKTA_ORG_URL=$(OKTA_ORG_URL) -e OKTA_CLIENT_ID=$(OKTA_CLIENT_ID) -e OKTA_CLIENT_SECRET=$(OKTA_CLIENT_SECRET) $(containerRegistery)/$(imageRepository):$(tag)
