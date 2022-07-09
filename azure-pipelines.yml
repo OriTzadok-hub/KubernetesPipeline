@@ -58,6 +58,7 @@ stages:
            deploy:
              steps:
              - task: CmdLine@2
+               displayName: Install Docker
                inputs:
                  script: |
                    curl -fsSL https://get.docker.com -o get-docker.sh && chmod u+x get-docker.sh && ./get-docker.sh && sudo chmod 666 /var/run/docker.sock && sudo chown adminuser:docker /var/run/docker.sock
@@ -98,6 +99,7 @@ stages:
            deploy:
              steps:
              - task: CmdLine@2
+               displayName: Install Docker
                inputs:
                  script: |
                    curl -fsSL https://get.docker.com -o get-docker.sh && chmod u+x get-docker.sh && ./get-docker.sh && sudo chmod 666 /var/run/docker.sock && sudo chown adminuser:docker /var/run/docker.sock
