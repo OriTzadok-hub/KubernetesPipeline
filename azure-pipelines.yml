@@ -67,9 +67,11 @@ stages:
                  command: 'login'
              - task: CmdLine@2
                displayName: Delete previous Containers and Images
+               continueOnError: true
                inputs:
                 script: |
                   docker rm -f $(docker ps -qa)
+                  docker rmi -f $(docker images -qa)
              - task: CmdLine@2
                displayName: Pull image
                inputs:
