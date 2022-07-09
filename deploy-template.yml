@@ -1,3 +1,4 @@
+steps:
 - task: CmdLine@2
   displayName: Install Docker
   inputs:
