@@ -29,7 +29,7 @@ stages:
       displayName: Build and Push on Master branch
       condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
       inputs:
-        containerRegistry: $(dockerRegisteryServiceConnection)
+        containerRegistry: privateRegistery
         repository: $(imageRepository)
         command: 'buildAndPush'
         Dockerfile: $(dockerfilePath)
