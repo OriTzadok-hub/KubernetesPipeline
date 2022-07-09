@@ -8,9 +8,9 @@ trigger:
 - feature/*
 
 variables:
-  dockerRegisteryServiceConnection: 'RegisteryConnection'
+  dockerRegisteryServiceConnection: 'privateRegistery'
   imageRepository: 'weight-tracker-app'
-  containerRegistery: 'pipelineassignmentregistery.azurecr.io'
+  containerRegistery: 'oribootcampacr.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
   tag: '$(Build.BuildNumber)'
 
@@ -29,7 +29,7 @@ stages:
       displayName: Build and Push on Master branch
       condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
       inputs:
-        containerRegistry: privateRegistery
+        containerRegistry: $(dockerRegisteryServiceConnection)
         repository: $(imageRepository)
         command: 'buildAndPush'
         Dockerfile: $(dockerfilePath)
@@ -63,7 +63,7 @@ stages:
                    curl -fsSL https://get.docker.com -o get-docker.sh && chmod u+x get-docker.sh && ./get-docker.sh && sudo chmod 666 /var/run/docker.sock && sudo chown adminuser:docker /var/run/docker.sock
              - task: Docker@2
                inputs:
-                 containerRegistry: 'RegisteryConnection'
+                 containerRegistry: $(dockerRegisteryServiceConnection)
                  command: 'login'
              - task: CmdLine@2
                displayName: Delete previous Containers and Images
@@ -81,4 +81,41 @@ stages:
                  script: |
                    docker run -d --name=appContainer --restart always -p 8080:8080 -e PORT=$(PORT) -e HOST=$(HOST) -e PGHOST=$(PGHOST) -e PGUSERNAME=$(PGUSERNAME) -e PGDATABASE=$(PGDATABASE) -e PGPASSWORD=$(PGPASSWORD) -e PGPORT=$(PGPORT) -e HOST_URL=$(HOST_URL) -e COOKIE_ENCRYPT_PWD=$(COOKIE_ENCRYPT_PWD) -e NODE_ENV=$(NODE_ENV) -e OKTA_ORG_URL=$(OKTA_ORG_URL) -e OKTA_CLIENT_ID=$(OKTA_CLIENT_ID) -e OKTA_CLIENT_SECRET=$(OKTA_CLIENT_SECRET) $(containerRegistery)/$(imageRepository):$(tag)
                   
-                  
+- stage: Deploy_Production
+  condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/master'))
+  displayName: Deploy Production
+  jobs:
+    - deployment: Deploy_Production
+      variables:
+      - group:  ProductionVars
+      environment: 
+        name: ProductionEnv
+        resourceType: VirtualMachine
+      displayName: Deploy
+      strategy:
+         runOnce:
+           deploy:
+             steps:
+             - task: CmdLine@2
+               inputs:
+                 script: |
+                   curl -fsSL https://get.docker.com -o get-docker.sh && chmod u+x get-docker.sh && ./get-docker.sh && sudo chmod 666 /var/run/docker.sock && sudo chown adminuser:docker /var/run/docker.sock
+             - task: Docker@2
+               inputs:
+                 containerRegistry: $(dockerRegisteryServiceConnection)
+                 command: 'login'
+             - task: CmdLine@2
+               displayName: Delete previous Containers and Images
+               inputs:
+                script: |
+                  docker rm -f $(docker ps -qa)
+                  docker rmi $(docker images -q)
+             - task: CmdLine@2
+               displayName: Pull image
+               inputs:
+                 script: 'docker pull $(containerRegistery)/$(imageRepository):$(tag)'
+             - task: CmdLine@2
+               displayName: Run the docker image
+               inputs:
+                 script: |
+                   docker run -d --name=appContainer --restart always -p 8080:8080 -e PORT=$(PORT) -e HOST=$(HOST) -e PGHOST=$(PGHOST) -e PGUSERNAME=$(PGUSERNAME) -e PGDATABASE=$(PGDATABASE) -e PGPASSWORD=$(PGPASSWORD) -e PGPORT=$(PGPORT) -e HOST_URL=$(HOST_URL) -e COOKIE_ENCRYPT_PWD=$(COOKIE_ENCRYPT_PWD) -e NODE_ENV=$(NODE_ENV) -e OKTA_ORG_URL=$(OKTA_ORG_URL) -e OKTA_CLIENT_ID=$(OKTA_CLIENT_ID) -e OKTA_CLIENT_SECRET=$(OKTA_CLIENT_SECRET) $(containerRegistery)/$(imageRepository):$(tag)                  
