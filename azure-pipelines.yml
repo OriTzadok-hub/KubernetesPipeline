@@ -25,8 +25,10 @@ stages:
     workspace: 
       clean: all
     steps: 
+    
+    # Build and push if on the master branch
     - task: Docker@2
-      displayName: Build and Push on Master branch
+      displayName: Build and Push on master branch
       condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
       inputs:
         containerRegistry: $(dockerRegisteryServiceConnection)
@@ -35,13 +37,16 @@ stages:
         Dockerfile: $(dockerfilePath)
         tags: |
           $(tag)
+
+      # Only build if not in the master branch    
     - task: Docker@2
-      displayName: Build on Feature branch
+      displayName: Build on feature branch
       condition: ne(variables['Build.SourceBranch'], 'refs/heads/master')
       inputs:
         command: 'build'
         Dockerfile: '**/Dockerfile'
 
+# Continuous Deployment to Staging Environment Process
 - stage: Deploy_Staging
   condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/master'))
   displayName: Deploy Staging
@@ -58,7 +63,8 @@ stages:
            deploy:
              steps:
              - template: deploy-template.yml
-                  
+
+# Continuous Delivery to Production Environment Process                  
 - stage: Deploy_Production
   condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/master'))
   displayName: Deploy Production
