@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: dockerimg 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dockerimg
+  template:
+    metadata:
+      labels:
+        app: dockerimg 
+    spec:
+      containers:
+        - name: dockerimg 
+          image: k8sregistery.azurecr.io/dockerimg
+          ports:
+          - containerPort: 80
