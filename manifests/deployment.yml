@@ -1,19 +1,19 @@
 apiVersion : apps/v1
 kind: Deployment
 metadata:
-  name: weighttracker-img 
+  name: web-app 
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
-      app: weighttracker-img
+      app: web-app
   template:
     metadata:
       labels:
-        app: weighttracker-img 
+        app: web-app 
     spec:
       containers:
-        - name: weighttracker-img 
+        - name: web-app 
           image: k8sregistery.azurecr.io/weighttracker-img
           ports:
           - containerPort: 80
