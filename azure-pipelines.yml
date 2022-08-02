@@ -18,9 +18,7 @@ variables:
   tag: '$(Build.BuildId)'
   imagePullSecret: 'k8sregisteryfe79-auth'
 
-  # Agent VM image name
-  vmImageName: 'ubuntu-latest'
-
+pool: myagent
 
 stages:
 - stage: Build
