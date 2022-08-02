@@ -12,7 +12,7 @@ variables:
 
   # Container registry service connection established during pipeline creation
   dockerRegistryServiceConnection: '40aa6d44-9547-44f8-8174-1c4747142e65'
-  imageRepository: 'dockerimg'
+  imageRepository: 'weighttracker-img'
   containerRegistry: 'k8sregistery.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
   tag: '$(Build.BuildId)'
