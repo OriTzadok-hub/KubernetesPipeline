@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: appimg 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: appimg
+  template:
+    metadata:
+      labels:
+        app: appimg 
+    spec:
+      containers:
+        - name: appimg 
+          image: k8sregistery.azurecr.io/appimg
+          ports:
+          - containerPort: 80
