@@ -15,7 +15,7 @@ variables:
   imageRepository: 'weighttracker-img'
   containerRegistry: 'k8sregistery.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
-  tag: '$(Build.BuildId)'
+  tag: '$(Build.BuildNumber)'
   imagePullSecret: 'k8sregisteryfe79-auth'
 
 pool: myagent
