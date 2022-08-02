@@ -30,3 +30,4 @@ spec:
     app: webapp
   ports:
     - port: 5678
+      targertPort: 80
