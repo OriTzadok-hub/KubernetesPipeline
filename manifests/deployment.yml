@@ -17,3 +17,16 @@ spec:
           image: k8sregistery.azurecr.io/appimg
           ports:
           - containerPort: 80
+
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: webapp-service
+spec:
+  selector:
+    app: webapp
+  ports:
+    - port: 5678
