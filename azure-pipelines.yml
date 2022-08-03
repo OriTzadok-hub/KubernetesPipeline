@@ -11,12 +11,12 @@ resources:
 variables:
 
   # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: '0012d546-1d2c-4f07-bb1f-6b17474af9e7'
+  dockerRegistryServiceConnection: '3df48654-bb82-479a-a2f1-3c9d6d5ef9aa'
   imageRepository: 'appimg'
   containerRegistry: 'k8sregistery.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
-  tag: '$(Build.BuildId)'
-  imagePullSecret: 'k8sregistery412398f1-auth'
+  tag: '$(Build.BuildNumber)'
+  imagePullSecret: 'k8sregistery16986250-auth'
 
 pool: myagent
 
@@ -48,7 +48,7 @@ stages:
   jobs:
   - deployment: Deploy
     displayName: Deploy
-    environment: 'KubernetesProj-3750.web-app'
+    environment: 'KubernetesProj-4100.web-app'
     strategy:
       runOnce:
         deploy:
@@ -66,7 +66,7 @@ stages:
               action: deploy
               manifests: |
                 $(Pipeline.Workspace)/manifests/deployment.yml
-                $(Pipeline.Workspace)/manifests/service.yml
+                $(Pipeline.Workspace)/manifests/ingress.yml
               imagePullSecrets: |
                 $(imagePullSecret)
               containers: |
