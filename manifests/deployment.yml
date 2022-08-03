@@ -33,3 +33,4 @@ spec:
     app: webapp
   ports:
     - port: 5678
+      targetPort: 80
