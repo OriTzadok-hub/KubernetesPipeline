@@ -16,7 +16,7 @@ variables:
   containerRegistry: 'k8sregistery.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
   tag: '$(Build.BuildNumber)'
-  imagePullSecret: 'k8sregistery1921df7e-auth'
+  imagePullSecret: 'secret'
 
 pool: myagent
 
