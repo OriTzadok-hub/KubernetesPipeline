@@ -48,7 +48,7 @@ stages:
   jobs:
   - deployment: Deploy
     displayName: Deploy
-    environment: 'KubernetesProj-4100.web-app'
+    environment: 'KubernetesProj-3284.web-app'
     strategy:
       runOnce:
         deploy:
