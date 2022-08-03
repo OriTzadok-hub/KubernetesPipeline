@@ -15,7 +15,7 @@ variables:
   imageRepository: 'appimg'
   containerRegistry: 'k8sregistery.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
-  tag: '$(Build.BuildId)'
+  tag: '$(Build.BuildNumber)'
   imagePullSecret: 'k8sregistery1921df7e-auth'
 
 pool: myagent
@@ -48,7 +48,7 @@ stages:
   jobs:
   - deployment: Deploy
     displayName: Deploy
-    environment: 'KubernetesProj-3824.web-app'
+    environment: 'KubernetesProj-4100.web-app'
     strategy:
       runOnce:
         deploy:
@@ -66,9 +66,10 @@ stages:
               action: deploy
               manifests: |
                 $(Pipeline.Workspace)/manifests/deployment.yml
-                $(Pipeline.Workspace)/manifests/service.yml
+                $(Pipeline.Workspace)/manifests/ingress.yml
               imagePullSecrets: |
                 $(imagePullSecret)
               containers: |
                 $(containerRegistry)/$(imageRepository):$(tag)
+
 
