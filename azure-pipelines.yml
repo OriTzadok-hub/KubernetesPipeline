@@ -69,8 +69,6 @@ stages:
               action: deploy
               manifests: |
                 $(Pipeline.Workspace)/manifests/webapp.yml
-                $(Pipeline.Workspace)/manifests/db.yml
-                $(Pipeline.Workspace)/manifests/worker.yml
                 $(Pipeline.Workspace)/manifests/ingress.yml
               imagePullSecrets: |
                 $(imagePullSecret)
