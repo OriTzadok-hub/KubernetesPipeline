@@ -13,4 +13,6 @@ RUN apk update && \
 
 COPY . .
 
+EXPOSE 80
+
 CMD npm run initdb ; npm run dev
