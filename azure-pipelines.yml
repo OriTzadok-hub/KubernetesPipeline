@@ -42,13 +42,8 @@ stages:
       inputs:
         command: 'package'
         chartPath: '$(Build.SourcesDirectory)/helm'
+        chartVersion: '$(Build.BuildId)'
     
-    - task: PublishPipelineArtifact@1
-      inputs:
-        targetPath: '$(Build.ArtifactStagingDirectory)'
-        artifact: 'chartPackage'
-        publishLocation: 'pipeline'
-  
 - stage: Deploy
   displayName: Deploy stage
   dependsOn: Build
@@ -69,12 +64,6 @@ stages:
               helmVersion: '2.14.1'
               installKubectl: true
               
-          - task: DownloadPipelineArtifact@2
-            inputs:
-              buildType: 'current'
-              artifactName: 'chartPackage'
-              targetPath: '$(Pipeline.Workspace)'
-
           - task: HelmDeploy@0
             inputs:
               connectionType: 'Azure Resource Manager'
@@ -84,6 +73,6 @@ stages:
               namespace: 'web-app'
               command: 'upgrade'
               chartType: 'FilePath'
-              chartPath: '$(Pipeline.Workspace)/helm/Chart.yaml'
+              chartPath: '$(Pipeline.Workspace)/helm-$(Build.BuildId).tgz'
 
 
