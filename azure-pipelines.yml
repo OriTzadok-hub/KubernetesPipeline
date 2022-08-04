@@ -87,10 +87,10 @@ stages:
               command: 'upgrade'
               chartType: 'FilePath'
               chartPath: '$(Pipeline.Workspace)/helmChart/helm-$(Build.BuildId).tgz'
-              releaseName: 'helm$(Build.BuildId)'
+              releaseName: '$(namespace)'
               overrideValues: 'deployment.tag=$(Build.BuildNumber)'
               valueFile: '$(Pipeline.Workspace)/s/helm/$(stage)Values.yaml'
-              arguments: '--install'
+
 
 
 - stage: Deploy_Production
@@ -129,9 +129,8 @@ stages:
               command: 'upgrade'
               chartType: 'FilePath'
               chartPath: '$(Pipeline.Workspace)/helmChart/helm-$(Build.BuildId).tgz'
-              releaseName: 'helm$(Build.BuildId)'
+              releaseName: '$(namespace)'
               overrideValues: 'deployment.tag=$(Build.BuildNumber)'
               valueFile: '$(Pipeline.Workspace)/s/helm/$(stage)Values.yaml'
-              arguments: '--install'
 
 
