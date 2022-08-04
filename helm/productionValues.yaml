@@ -3,6 +3,6 @@ deployment:
   tag: "latest"
   replicas: 4
 
-chart:
-  chartVersion: "0.1"
-  appVersion: "0.1"
+ingress:
+  namespace: production
+  name: production-ingress
