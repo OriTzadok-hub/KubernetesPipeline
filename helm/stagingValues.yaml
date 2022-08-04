@@ -3,3 +3,6 @@ deployment:
   tag: "latest"
   replicas: 3
 
+ingress:
+  namespace: staging
+  name: staging-ingress
