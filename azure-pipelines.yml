@@ -76,6 +76,11 @@ stages:
               artifactName: 'helmChart'
               targetPath: '$(Pipeline.Workspace)'
           
+          - task: Docker@2
+            inputs:
+              containerRegistry: 'K8sRegistery'
+              command: 'login'
+
           - task: HelmDeploy@0
             inputs:
               connectionType: 'Azure Resource Manager'
