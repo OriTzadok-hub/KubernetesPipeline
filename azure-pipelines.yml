@@ -77,14 +77,7 @@ stages:
               artifactName: 'helmChart'
               targetPath: '$(Pipeline.Workspace)'
           
-          - task: HelmDeploy@0
-            inputs:
-              connectionType: 'Azure Resource Manager'
-              azureSubscription: 'Azure Pass - Sponsorship(d1dec8f2-4c36-49cf-b497-b8733b6d4816)'
-              azureResourceGroup: 'K8sRG'
-              kubernetesCluster: 'K8scluster'
-              namespace: 'web-app'
-              command: 'login'
+         
           - task: HelmDeploy@0
             inputs:
               connectionType: 'Azure Resource Manager'
