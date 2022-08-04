@@ -41,8 +41,9 @@ stages:
     - task: HelmDeploy@0
       inputs:
         command: 'package'
-        chartPath: '$(Build.ArtifactStagingDirectory)'
+        chartPath: '$(Build.SourcesDirectory)/helm'
         chartVersion: '$(Build.BuildId)'
+        
 
     - task: PublishPipelineArtifact@1
       inputs:
