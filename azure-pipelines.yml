@@ -75,10 +75,6 @@ stages:
               artifactName: 'helmChart'
               targetPath: '$(Pipeline.Workspace)'
           
-          - task: Docker@2
-            inputs:
-              containerRegistry: 'K8sRegistery'
-              command: 'login'
 
           - task: HelmDeploy@0
             inputs:
@@ -94,6 +90,7 @@ stages:
               releaseName: 'helm$(Build.BuildId)'
               overrideValues: 'deployment.tag=$(Build.BuildNumber)'
               valueFile: '$(Pipeline.Workspace)/s/helm/$(stage)Values.yaml'
+              arguments: '--install'
 
 
 - stage: Deploy_Production
@@ -120,11 +117,7 @@ stages:
               artifactName: 'helmChart'
               targetPath: '$(Pipeline.Workspace)'
           
-          - task: Docker@2
-            inputs:
-              containerRegistry: 'K8sRegistery'
-              command: 'login'
-
+          
           - task: HelmDeploy@0
             inputs:
               connectionType: 'Azure Resource Manager'
@@ -139,5 +132,6 @@ stages:
               releaseName: 'helm$(Build.BuildId)'
               overrideValues: 'deployment.tag=$(Build.BuildNumber)'
               valueFile: '$(Pipeline.Workspace)/s/helm/$(stage)Values.yaml'
+              arguments: '--install'
 
 
