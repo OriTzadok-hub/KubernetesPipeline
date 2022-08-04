@@ -3,6 +3,3 @@ deployment:
   tag: "latest"
   replicas: 3
 
-chart:
-  chartVersion: "0.1"
-  appVersion: "0.1"
