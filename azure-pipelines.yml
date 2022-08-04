@@ -38,21 +38,25 @@ stages:
         tags: |
           $(tag)
 
+    - task: HelmInstaller@0
+      inputs:
+        helmVersion: '2.14.1'
+        installKubectl: true
     - task: HelmDeploy@0
       inputs:
         command: 'package'
         chartPath: '$(Build.SourcesDirectory)/helm'
         chartVersion: '$(Build.BuildId)'
     
-    - task: PublishPipelineArtifact@1
+    - task: HelmDeploy@0
       inputs:
-        targetPath: '$(Build.ArtifactStagingDirectory)'
-        artifact: 'helmArtifact'
-        publishLocation: 'pipeline'
-    
-    - upload: manifests
-      artifact: manifests
-
+        azureSubscriptionForACR: 'Azure Pass - Sponsorship(d1dec8f2-4c36-49cf-b497-b8733b6d4816)'
+        azureResourceGroupForACR: 'K8sRG'
+        azureContainerRegistry: 'k8sregistery.azurecr.io'
+        command: 'save'
+        chartNameForACR: 'helmChart:$(Build.BuildId)'
+        chartPathForACR: '$(Build.SourcesDirectory)/helm'
+  
 - stage: Deploy
   displayName: Deploy stage
   dependsOn: Build
@@ -75,10 +79,9 @@ stages:
               secretName: '$(imagePullSecret)'
               secretArguments: '--from-literal=COOKIE_ENCRYPT_PWD=$(COOKIE_ENCRYPT_PWD) --from-literal=HOST=$(HOST) --from-literal=HOST_URL=$(HOST_URL) --from-literal=NODE_ENV=$(NODE_ENV) --from-literal=OKTA_CLIENT_ID=$(OKTA_CLIENT_ID) --from-literal=OKTA_CLIENT_SECRET=$(OKTA_CLIENT_SECRET) --from-literal=OKTA_ORG_URL=$(OKTA_ORG_URL) --from-literal=PGDATABASE=$(PGDATABASE) --from-literal=PGHOST=$(PGHOST) --from-literal=PGPASSWORD=$(PGPASSWORD) --from-literal=PGPORT=$(PGPORT) --from-literal=PGUSERNAME=$(PGUSERNAME) --from-literal=PORT=$(PORT)'
           
-          - task: HelmInstaller@0
+          - task: CmdLine@2
             inputs:
-              helmVersion: '2.14.1'
-              installKubectl: true
+              script: 'helm chart pull $(containerRegistery)/**/helmChart:$(Build.BuildId)'
         
           - task: HelmDeploy@0
             inputs:
@@ -89,7 +92,7 @@ stages:
               namespace: 'web-app'
               command: 'upgrade'
               chartType: 'Name'
-              chartName: 'helmArtifact'
+              chartName: 'helmChart:$(Build.BuildId)'
               chartVersion: '$(Build.BuildId)'
 
 
