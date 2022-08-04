@@ -73,6 +73,6 @@ stages:
               namespace: 'web-app'
               command: 'upgrade'
               chartType: 'FilePath'
-              chartPath: '$(Pipeline.Workspace)/helm-$(Build.BuildId).tgz'
+              chartPath: '$(Pipeline.Workspace)/a/helm-$(Build.BuildId).tgz'
 
 
