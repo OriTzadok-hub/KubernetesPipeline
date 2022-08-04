@@ -74,6 +74,7 @@ stages:
               buildType: 'current'
               artifactName: 'chartPackage'
               targetPath: '$(Pipeline.Workspace)'
+
           - task: HelmDeploy@0
             inputs:
               connectionType: 'Azure Resource Manager'
@@ -83,6 +84,6 @@ stages:
               namespace: 'web-app'
               command: 'upgrade'
               chartType: 'FilePath'
-              chartPath: '$(Build.SourcesDirectory)/helm/Chart.yaml'
+              chartPath: '$(Pipeline.Workspace)/helm/Chart.yaml'
 
 
