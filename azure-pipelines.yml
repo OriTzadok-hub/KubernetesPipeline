@@ -96,6 +96,48 @@ stages:
               valueFile: '$(Pipeline.Workspace)/s/helm/$(stage)Values.yaml'
 
 
+- stage: Deploy_Production
+  displayName: Deploy Production
+  condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/master'))
+  jobs:
+  - deployment: Deploy_Production
+    displayName: Deploy
+    variables: 
+    - group: productionVars 
+    environment: 'KubernetesProj-3824'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: HelmInstaller@0
+            inputs:
+              helmVersion: '2.14.1'
+              installKubectl: true
 
+          - task: DownloadPipelineArtifact@2
+            inputs:
+              buildType: 'current'
+              artifactName: 'helmChart'
+              targetPath: '$(Pipeline.Workspace)'
+          
+          - task: Docker@2
+            inputs:
+              containerRegistry: 'K8sRegistery'
+              command: 'login'
+
+          - task: HelmDeploy@0
+            inputs:
+              connectionType: 'Azure Resource Manager'
+              azureSubscription: 'Azure Pass - Sponsorship(2)(d1dec8f2-4c36-49cf-b497-b8733b6d4816)'
+              azureResourceGroup: 'K8sRG'
+              kubernetesCluster: 'K8scluster'
+              useClusterAdmin: true
+              namespace: '$(namespace)'
+              command: 'upgrade'
+              chartType: 'FilePath'
+              chartPath: '$(Pipeline.Workspace)/helmChart/helm-$(Build.BuildId).tgz'
+              releaseName: 'helm$(Build.BuildId)'
+              overrideValues: 'deployment.tag=$(Build.BuildNumber)'
+              valueFile: '$(Pipeline.Workspace)/s/helm/$(stage)Values.yaml'
 
 
