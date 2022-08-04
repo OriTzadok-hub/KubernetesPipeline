@@ -37,7 +37,6 @@ stages:
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
-          latest
 
     - task: HelmDeploy@0
       inputs:
@@ -93,7 +92,7 @@ stages:
               chartType: 'FilePath'
               chartPath: '$(Pipeline.Workspace)/helmChart/helm-$(Build.BuildId).tgz'
               releaseName: 'helm$(Build.BuildId)'
-              overrideValues: 'deployment.tag=$(Build.BuildId)'
+              overrideValues: 'deployment.tag=$(Build.BuildNumber)'
               valueFile: '$(Pipeline.Workspace)/s/helm/$(stage)Values.yaml'
 
 
