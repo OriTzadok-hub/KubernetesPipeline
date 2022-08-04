@@ -47,7 +47,7 @@ stages:
 
     - task: PublishPipelineArtifact@1
       inputs:
-        targetPath: '$(Build.ArtifactStagingDirectory)/**.tgz'
+        targetPath: '$(Build.ArtifactStagingDirectory)'
         artifact: 'helmChart'
         publishLocation: 'pipeline'
     
