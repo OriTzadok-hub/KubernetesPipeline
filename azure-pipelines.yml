@@ -83,6 +83,6 @@ stages:
               namespace: 'web-app'
               command: 'upgrade'
               chartType: 'FilePath'
-              chartPath: '$(Build.SourcesDirectory)/helm/Chart.yml'
+              chartPath: '$(Build.SourcesDirectory)/helm/Chart.yaml'
 
 
