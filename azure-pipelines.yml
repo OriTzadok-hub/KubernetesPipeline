@@ -87,7 +87,7 @@ stages:
               chartType: 'FilePath'
               chartPath: '$(Pipeline.Workspace)/helmChart/helm-$(Build.BuildId).tgz'
               overrideValues: 'deployment.tag=$(Build.BuildId)'
-              valueFile: '$(stage)Values.yaml'
+              valueFile: '/helm/$(stage)Values.yaml'
 
 
 
