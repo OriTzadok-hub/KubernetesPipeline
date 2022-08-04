@@ -86,7 +86,7 @@ stages:
               command: 'upgrade'
               chartType: 'FilePath'
               chartPath: '$(Pipeline.Workspace)/helmChart/helm-$(Build.BuildId).tgz'
-              overrideValues: 'chart.chartVersion=$(Build.BuildId) chart.appVersion=$(Build.BuildId) deployment.tag=$(Build.BuildId)'
+              overrideValues: 'deployment.tag=$(Build.BuildId)'
               valueFile: '$(stage)Values.yaml'
 
 
