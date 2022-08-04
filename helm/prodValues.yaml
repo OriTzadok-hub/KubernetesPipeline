@@ -1,3 +1,4 @@
 deployment:
   image: "k8sregistery.azurecr.io/appimg"
   tag: "latest"
+  replicas: 4
