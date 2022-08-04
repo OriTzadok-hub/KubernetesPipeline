@@ -38,12 +38,6 @@ stages:
         tags: |
           $(tag)
 
-    - task: HelmInstaller@0
-      inputs:
-        helmVersion: 
-        installKubectl: true
-        kubectlVersion: 
-
     - task: HelmDeploy@0
       inputs:
         command: 'package'
