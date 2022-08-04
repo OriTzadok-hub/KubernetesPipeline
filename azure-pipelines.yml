@@ -84,15 +84,18 @@ stages:
           - task: HelmDeploy@0
             inputs:
               connectionType: 'Azure Resource Manager'
-              azureSubscription: 'Azure Pass - Sponsorship(d1dec8f2-4c36-49cf-b497-b8733b6d4816)'
+              azureSubscription: 'Azure Pass - Sponsorship(2)(d1dec8f2-4c36-49cf-b497-b8733b6d4816)'
               azureResourceGroup: 'K8sRG'
               kubernetesCluster: 'K8scluster'
+              useClusterAdmin: true
               namespace: '$(namespace)'
               command: 'upgrade'
               chartType: 'FilePath'
               chartPath: '$(Pipeline.Workspace)/helmChart/helm-$(Build.BuildId).tgz'
+              releaseName: 'helm$(Build.BuildId)'
               overrideValues: 'deployment.tag=$(Build.BuildId)'
               valueFile: '$(Pipeline.Workspace)/s/helm/$(stage)Values.yaml'
+
 
 
 
