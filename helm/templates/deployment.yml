@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: webapp 
 spec:
-  replicas: {{.Values.deployment.replicas}}
+  replicas: {{ .Values.deployment.replicas }}
   selector:
     matchLabels:
       app: webapp
@@ -19,6 +19,6 @@ spec:
     spec:
       containers:
         - name: webapp
-          image: {{.Values.deployment.image}}:{{.Values.deployment.tag}}
+          image: {{ .Values.deployment.image }}:{{ .Values.deployment.tag }}
           ports:
           - containerPort: 80
