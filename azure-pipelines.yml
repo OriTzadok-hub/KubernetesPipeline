@@ -47,16 +47,14 @@ stages:
       inputs:
         command: 'package'
         chartPath: '$(Build.SourcesDirectory)/helm'
+        chartVersion: '$(Build.BuildId)'
     
-    - task: HelmDeploy@0
+    - task: PublishPipelineArtifact@1
       inputs:
-        azureSubscriptionForACR: 'Azure Pass - Sponsorship(d1dec8f2-4c36-49cf-b497-b8733b6d4816)'
-        azureResourceGroupForACR: 'K8sRG'
-        azureContainerRegistry: 'k8sregistery.azurecr.io'
-        command: 'save'
-        chartNameForACR: 'Chart$(tag)'
-        chartPathForACR: '$(Build.SourcesDirectory)/helm'
-  
+        targetPath: '$(Build.ArtifactStagingDirectory)'
+        artifact: 'helmArtifact'
+        publishLocation: 'pipeline'
+    
     - upload: manifests
       artifact: manifests
 
