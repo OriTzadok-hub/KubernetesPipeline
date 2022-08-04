@@ -46,16 +46,12 @@ stages:
       inputs:
         command: 'package'
         chartPath: '$(Build.SourcesDirectory)/helm'
-        chartVersion: '$(Build.BuildId)'
     
-    - task: HelmDeploy@0
+    - task: PublishPipelineArtifact@1
       inputs:
-        azureSubscriptionForACR: 'Azure Pass - Sponsorship(d1dec8f2-4c36-49cf-b497-b8733b6d4816)'
-        azureResourceGroupForACR: 'K8sRG'
-        azureContainerRegistry: 'k8sregistery.azurecr.io'
-        command: 'save'
-        chartNameForACR: 'helmChart:$(Build.BuildId)'
-        chartPathForACR: '$(Build.SourcesDirectory)/helm'
+        targetPath: '$(Build.ArtifactStagingDirectory)'
+        artifact: 'chartPackage'
+        publishLocation: 'pipeline'
   
 - stage: Deploy
   displayName: Deploy stage
@@ -71,18 +67,12 @@ stages:
       runOnce:
         deploy:
           steps:
-          - task: KubernetesManifest@0
-            displayName: Create imagePullSecret
-            inputs:
-              action: 'createSecret'
-              secretType: 'generic'
-              secretName: '$(imagePullSecret)'
-              secretArguments: '--from-literal=COOKIE_ENCRYPT_PWD=$(COOKIE_ENCRYPT_PWD) --from-literal=HOST=$(HOST) --from-literal=HOST_URL=$(HOST_URL) --from-literal=NODE_ENV=$(NODE_ENV) --from-literal=OKTA_CLIENT_ID=$(OKTA_CLIENT_ID) --from-literal=OKTA_CLIENT_SECRET=$(OKTA_CLIENT_SECRET) --from-literal=OKTA_ORG_URL=$(OKTA_ORG_URL) --from-literal=PGDATABASE=$(PGDATABASE) --from-literal=PGHOST=$(PGHOST) --from-literal=PGPASSWORD=$(PGPASSWORD) --from-literal=PGPORT=$(PGPORT) --from-literal=PGUSERNAME=$(PGUSERNAME) --from-literal=PORT=$(PORT)'
-          
-          - task: CmdLine@2
-            inputs:
-              script: 'helm chart pull $(containerRegistery)/**/helmChart:$(Build.BuildId)'
         
+          - task: DownloadPipelineArtifact@2
+            inputs:
+              buildType: 'current'
+              artifactName: 'chartPackage'
+              targetPath: '$(Pipeline.Workspace)'
           - task: HelmDeploy@0
             inputs:
               connectionType: 'Azure Resource Manager'
@@ -91,8 +81,7 @@ stages:
               kubernetesCluster: 'K8scluster'
               namespace: 'web-app'
               command: 'upgrade'
-              chartType: 'Name'
-              chartName: 'helmChart:$(Build.BuildId)'
-              chartVersion: '$(Build.BuildId)'
+              chartType: 'FilePath'
+              chartPath: '$(Pipeline.Workspace)/chartPackage'
 
 
