@@ -60,7 +60,7 @@ stages:
     displayName: Deploy
     variables: 
     - group: stagingVars 
-    environment: 'KubernetesProj-3824.$(namespace)'
+    environment: 'KubernetesProj-3824'
     strategy:
       runOnce:
         deploy:
