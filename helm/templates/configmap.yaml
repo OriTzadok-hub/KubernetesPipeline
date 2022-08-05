@@ -19,7 +19,7 @@ data:
   NODE_ENV: "{{.Values.configmap.node_env}}"
 
   COOKIE_ENCRYPT_PWD: "{{.Values.configmap.cookie_pwd}}"
-"
+
   OKTA_CLIENT_ID: "{{.Values.configmap.okta_id}}"
 
   OKTA_CLIENT_SECRET: "{{.Values.configmap.okta_secret}}"
