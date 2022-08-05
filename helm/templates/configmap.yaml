@@ -10,28 +10,28 @@ metadata:
   
 data:
   
-  HOST: {{.Values.configmap.host}}
+  HOST: "{{.Values.configmap.host}}"
   
-  PORT: {{.Values.configmap.port}}
+  PORT: "{{.Values.configmap.port}}"
 
-  HOST_URL: {{.Values.configmap.host_url}}
+  HOST_URL: "{{.Values.configmap.host_url}}"
 
-  NODE_ENV: {{.Values.configmap.node_env}}
+  NODE_ENV: "{{.Values.configmap.node_env}}"
 
-  COOKIE_ENCRYPT_PWD: {{.Values.configmap.cookie_pwd}}
+  COOKIE_ENCRYPT_PWD: "{{.Values.configmap.cookie_pwd}}"
+"
+  OKTA_CLIENT_ID: "{{.Values.configmap.okta_id}}"
 
-  OKTA_CLIENT_ID: {{.Values.configmap.okta_id}}
+  OKTA_CLIENT_SECRET: "{{.Values.configmap.okta_secret}}"
 
-  OKTA_CLIENT_SECRET: {{.Values.configmap.okta_secret}}
+  OKTA_ORG_URL: "{{.Values.configmap.okta_url}}"
 
-  OKTA_ORG_URL: {{.Values.configmap.okta_url}}
+  PGDATABASE: "{{.Values.configmap.pg_db}}"
 
-  PGDATABASE: {{.Values.configmap.pg_db}}
+  PGHOST: "{{.Values.configmap.pg_host}}"
 
-  PGHOST: {{.Values.configmap.pg_host}}
+  PGPASSWORD: "{{.Values.configmap.pg_pwd}}"
 
-  PGPASSWORD: {{.Values.configmap.pg_pwd}}
+  PGPORT: "{{.Values.configmap.pg_port}}"
 
-  PGPORT: {{.Values.configmap.pg_port}}
-
-  PGUSERNAME: {{.Values.configmap.pg_username}}
+  PGUSERNAME: "{{.Values.configmap.pg_username}}"
