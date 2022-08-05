@@ -32,6 +32,6 @@ data:
 
   PGPASSWORD: {{.Values.configmap.pg_pwd}}
 
-  PGPORT: {{.Values.configmap.pg_host}}
+  PGPORT: {{.Values.configmap.pg_port}}
 
   PGUSERNAME: {{.Values.configmap.pg_username}}
