@@ -1,8 +1,36 @@
+namespace: staging
+
 deployment:
   image: "k8sregistery.azurecr.io/appimg"
   tag: "latest"
   replicas: 3
 
 ingress:
-  namespace: staging
   name: staging-ingress
+
+configmap:
+  host: 0.0.0.0
+  
+  port: 80
+
+  host_url: http://
+
+  node_env: development
+
+  cookie_pwd: 
+
+  okta_id: 
+
+  okta_secret: 
+
+  okta_url: https://dev-66078042.okta.com
+
+  pg_db: 
+
+  pg_host: 
+
+  pg_pwd: 
+
+  pg_port: 5432
+
+  pg_username: 
