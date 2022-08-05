@@ -39,4 +39,3 @@ spec:
   ports:
     - port: 5678
       targetPort: 80
-      name: http
