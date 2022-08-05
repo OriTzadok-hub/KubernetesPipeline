@@ -22,3 +22,6 @@ spec:
           image: {{ .Values.deployment.image }}:{{ .Values.deployment.tag }}
           ports:
           - containerPort: 80
+          envFrom:
+          - configMapRef:
+              name: env-config
