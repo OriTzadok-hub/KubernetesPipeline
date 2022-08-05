@@ -1,8 +1,12 @@
+namespace: production
+
 deployment:
   image: "k8sregistery.azurecr.io/appimg"
   tag: "latest"
   replicas: 4
 
 ingress:
-  namespace: production
   name: production-ingress
+
+configmap:
+  
