@@ -13,15 +13,15 @@ configmap:
   
   port: 80
 
-  host_url: http://
+  host_url: http://20.102.37.37
 
   node_env: development
 
-  cookie_pwd: 
+  cookie_pwd: superAwesomePasswordStringThatIsAtLeast32CharactersLong
 
-  okta_id: 
+  okta_id: 0oa58lt5rjEA9eORW5d7
 
-  okta_secret: 
+  okta_secret: QJ-w1yj8UPj0W1gzPXuifD3btaQw7cyReQLgAy6i
 
   okta_url: https://dev-66078042.okta.com
 
