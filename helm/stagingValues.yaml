@@ -9,28 +9,28 @@ ingress:
   name: staging-ingress
 
 configmap:
-  host: 0.0.0.0
+  host: "0.0.0.0"
   
-  port: 80
+  port: "80"
 
-  host_url: http://20.102.37.37
+  host_url: "http://20.102.37.37"
 
-  node_env: development
+  node_env: "development"
 
-  cookie_pwd: superAwesomePasswordStringThatIsAtLeast32CharactersLong
+  cookie_pwd: "superAwesomePasswordStringThatIsAtLeast32CharactersLong"
 
-  okta_id: 0oa58lt5rjEA9eORW5d7
+  okta_id: "0oa58lt5rjEA9eORW5d7"
 
-  okta_secret: QJ-w1yj8UPj0W1gzPXuifD3btaQw7cyReQLgAy6i
+  okta_secret: "QJ-w1yj8UPj0W1gzPXuifD3btaQw7cyReQLgAy6i"
 
-  okta_url: https://dev-66078042.okta.com
+  okta_url: "https://dev-66078042.okta.com"
 
-  pg_db: default
+  pg_db: "default"
 
-  pg_host: default
+  pg_host: "default"
 
-  pg_pwd: default
+  pg_pwd: "default"
 
-  pg_port: 5432
+  pg_port: "5432"
 
-  pg_username: default
+  pg_username: "default"
