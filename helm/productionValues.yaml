@@ -5,32 +5,29 @@ deployment:
   tag: "latest"
   replicas: 4
 
-ingress:
-  name: production-ingress
-
 configmap:
   host: 0.0.0.0
   
-  port: 80
+  port: 8080
 
-  host_url: http://
+  host_url: http://20.241.249.38
 
   node_env: development
 
   cookie_pwd: 
 
-  okta_id: 
+  okta_id: 0oa5mj2y56LqXTbaH5d7
 
-  okta_secret: 
+  okta_secret: BdDmJv7dkD7dk-x3Fl9reS9w0bK0SRxGk5XuorgX
 
   okta_url: https://dev-66078042.okta.com
 
-  pg_db: 
+  pg_db: postgres
 
-  pg_host: 
+  pg_host: measurements-postgresql.production.svc.cluster.local
 
-  pg_pwd: 
+  pg_pwd: yWUI1pfxtG
 
   pg_port: 5432
 
-  pg_username: 
+  pg_username: postgres
