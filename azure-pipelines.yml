@@ -11,12 +11,11 @@ resources:
 variables:
 
   # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: 'd8c0028b-658d-46a0-9867-0558fecfa566'
+  dockerRegistryServiceConnection: 'ACRconnection'
   imageRepository: 'appimg'
-  containerRegistry: 'k8sregistery.azurecr.io'
+  containerRegistry: 'containerregistryfork8s8608.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
   tag: '$(Build.BuildNumber)'
-  imagePullSecret: 'secret'
 
 pool: myagent
 
