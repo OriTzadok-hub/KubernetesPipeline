@@ -24,9 +24,9 @@ configmap:
 
   pg_db: postgres
 
-  pg_host:  my-release-postgresql.staging.svc.cluster.local
+  pg_host:  stagingdb-postgresql.staging.svc.cluster.local
 
-  pg_pwd: Usv6IhjnTm
+  pg_pwd: ZCtIACF2D3
 
   pg_port: 5432
 
