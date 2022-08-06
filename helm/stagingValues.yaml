@@ -1,7 +1,7 @@
 namespace: staging
 
 deployment:
-  image: "k8sregistery.azurecr.io/appimg"
+  image: "containerregistryfork8s8608.azurecr.io/appimg"
   tag: "latest"
   replicas: 1
 
