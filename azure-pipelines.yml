@@ -62,7 +62,7 @@ stages:
     displayName: Deploy
     variables: 
     - group: stagingVars 
-    environment: 'StagingEnv'
+    environment: 'KubernetesProj-3824'
     strategy:
       runOnce:
         deploy:
@@ -106,7 +106,7 @@ stages:
     displayName: Deploy
     variables: 
     - group: productionVars 
-    environment: 'ProductionEnv'
+    environment: 'KubernetesProj-3824'
     strategy:
       runOnce:
         deploy:
