@@ -83,5 +83,33 @@ stages:
       runOnce:
         deploy:
           steps:
-          - template: deploy-template.yml
+               
+          - task: HelmInstaller@0
+            displayName: Install Helm
+            inputs:
+              helmVersion: '2.14.1'
+              installKubectl: true
+              
+          - task: DownloadPipelineArtifact@2
+            displayName: Download packaged artifact
+            inputs:
+              buildType: 'current'
+              artifactName: 'helmChart'
+              targetPath: '$(Pipeline.Workspace)'
+          
+
+          - task: HelmDeploy@0
+            inputs:
+              connectionType: 'Azure Resource Manager'
+              azureSubscription: 'Azure Pass - Sponsorship(5)(d1dec8f2-4c36-49cf-b497-b8733b6d4816)'
+              azureResourceGroup: 'ProductionEnv'
+              kubernetesCluster: 'AKSProductionEnv'
+              useClusterAdmin: true
+              namespace: '$(namespace)'
+              command: 'upgrade'
+              chartType: 'FilePath'
+              chartPath: '$(Pipeline.Workspace)/helmChart/helm-$(Build.BuildId).tgz'
+              releaseName: '$(namespace)'
+              overrideValues: 'deployment.tag=$(Build.BuildNumber)'
+              valueFile: '$(Pipeline.Workspace)/s/helm/$(stage)Values.yaml'
 
