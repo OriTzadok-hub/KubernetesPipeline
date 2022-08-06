@@ -26,7 +26,7 @@ configmap:
 
   pg_host:  measurements-postgresql.staging.svc.cluster.local
 
-  pg_pwd: JAJFwxzM1o
+  pg_pwd: s4d7SBkX6U
 
   pg_port: 5432
 
