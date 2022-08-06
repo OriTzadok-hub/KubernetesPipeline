@@ -14,7 +14,7 @@ configmap:
 
   node_env: development
 
-  cookie_pwd: 
+  cookie_pwd: superAwesomePasswordStringThatIsAtLeast32CharactersLong
 
   okta_id: 0oa5mj2y56LqXTbaH5d7
 
