@@ -22,12 +22,12 @@ configmap:
 
   okta_url: https://dev-66078042.okta.com
 
-  pg_db: default
+  pg_db: postgres
 
-  pg_host: default
+  pg_host:  measurements-postgresql.staging.svc.cluster.local
 
-  pg_pwd: default
+  pg_pwd: QcevazQCtw
 
   pg_port: 5432
 
-  pg_username: default
+  pg_username: postgres
