@@ -63,7 +63,7 @@ stages:
     displayName: Deploy
     variables: 
     - group: stagingVars 
-    environment: 'KubernetesProj-1840'
+    environment: 'KubernetesProj-1840.staging'
     strategy:
       runOnce:
         deploy:
