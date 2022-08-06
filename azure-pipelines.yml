@@ -11,12 +11,11 @@ resources:
 variables:
 
   # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: '304a507f-0bf3-4b66-ba12-728b422e0fa0'
+  dockerRegistryServiceConnection: 'ACRconnection'
   imageRepository: 'appimg'
   containerRegistry: 'containerregistryfork8s8608.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
   tag: '$(Build.BuildNumber)'
-  imagePullSecret: 'containerregistryfork8s86081808ae04-auth'
 
 pool: myagent
 
@@ -82,13 +81,11 @@ stages:
               targetPath: '$(Pipeline.Workspace)'
           
 
+         
           - task: HelmDeploy@0
             inputs:
-              connectionType: 'Azure Resource Manager'
-              azureSubscription: 'Azure Pass - Sponsorship(1)(d1dec8f2-4c36-49cf-b497-b8733b6d4816)'
-              azureResourceGroup: '$(resourceGroup)'
-              kubernetesCluster: '$(clusterName)'
-              useClusterAdmin: true
+              connectionType: 'Kubernetes Service Connection'
+              kubernetesServiceConnection: 'StagingConnection'
               namespace: '$(namespace)'
               command: 'upgrade'
               chartType: 'FilePath'
@@ -129,11 +126,8 @@ stages:
 
           - task: HelmDeploy@0
             inputs:
-              connectionType: 'Azure Resource Manager'
-              azureSubscription: 'Azure Pass - Sponsorship(5)(d1dec8f2-4c36-49cf-b497-b8733b6d4816)'
-              azureResourceGroup: '$(resourceGroup)'
-              kubernetesCluster: '$(clusterName)'
-              useClusterAdmin: true
+              connectionType: 'Kubernetes Service Connection'
+              kubernetesServiceConnection: 'ProductionConnection'
               namespace: '$(namespace)'
               command: 'upgrade'
               chartType: 'FilePath'
