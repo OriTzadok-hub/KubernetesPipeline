@@ -10,7 +10,7 @@ configmap:
   
   port: 8080
 
-  host_url: http://20.83.138.58
+  host_url: http://20.241.249.177
 
   node_env: development
 
