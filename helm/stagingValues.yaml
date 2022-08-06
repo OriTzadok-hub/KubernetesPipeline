@@ -5,9 +5,6 @@ deployment:
   tag: "latest"
   replicas: 1
 
-ingress:
-  name: staging-ingress
-
 configmap:
   host: 0.0.0.0
   
