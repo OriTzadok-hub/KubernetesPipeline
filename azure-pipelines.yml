@@ -84,7 +84,7 @@ stages:
           - task: HelmDeploy@0
             inputs:
               connectionType: 'Azure Resource Manager'
-              azureSubscription: 'Azure Pass - Sponsorship(5)(d1dec8f2-4c36-49cf-b497-b8733b6d4816)'
+              azureSubscription: 'Azure Pass - Sponsorship(1)(d1dec8f2-4c36-49cf-b497-b8733b6d4816)'
               azureResourceGroup: '$(resourceGroup)'
               kubernetesCluster: '$(clusterName)'
               useClusterAdmin: true
@@ -95,6 +95,7 @@ stages:
               releaseName: '$(namespace)'
               overrideValues: 'deployment.tag=$(Build.BuildNumber)'
               valueFile: '$(Pipeline.Workspace)/s/helm/$(stage)Values.yaml'
+
               
 
 - stage: Deploy_Production
