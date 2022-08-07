@@ -1,0 +1,33 @@
+namespace: staging
+
+deployment:
+  image: "containerregistryfork8s8608.azurecr.io/appimg"
+  tag: "latest"
+  replicas: 1
+
+configmap:
+  host: 0.0.0.0
+  
+  port: 8080
+
+  host_url: http://20.241.249.177
+
+  node_env: development
+
+  cookie_pwd: superAwesomePasswordStringThatIsAtLeast32CharactersLong
+
+  okta_id: 0oa5hc9qotycSKdkp5d7
+
+  okta_secret: fpntsmfC4wwYNepDhLVlzZkA3tjLT3fMmYxeAefb
+
+  okta_url: https://dev-66078042.okta.com
+
+  pg_db: postgres
+
+  pg_host:  stagingdb-postgresql.staging.svc.cluster.local
+
+  pg_pwd: ZCtIACF2D3
+
+  pg_port: 5432
+
+  pg_username: postgres
