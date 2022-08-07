@@ -15,11 +15,8 @@ steps:
 
 - task: HelmDeploy@0
   inputs:
-    connectionType: 'Azure Resource Manager'
-    azureSubscription: '$(azureSub)'
-    azureResourceGroup: '$(resourceGroup)'
-    kubernetesCluster: '$(clusterName)'
-    useClusterAdmin: true
+    connectionType: 'Kubernetes Service Connection'
+    kubernetesServiceConnection: '$(serviceConnection)'
     namespace: '$(namespace)'
     command: 'upgrade'
     chartType: 'FilePath'
