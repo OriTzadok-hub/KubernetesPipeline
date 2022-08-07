@@ -3,7 +3,7 @@ namespace: staging
 deployment:
   image: "containerregistryfork8s8608.azurecr.io/appimg"
   tag: "latest"
-  replicas: 1
+  replicas: 3
 
 configmap:
   host: 0.0.0.0
