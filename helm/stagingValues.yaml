@@ -16,9 +16,9 @@ configmap:
 
   cookie_pwd: superAwesomePasswordStringThatIsAtLeast32CharactersLong
 
-  okta_id: 0oa5mj2y56LqXTbaH5d7
+  okta_id: 0oa5hc9qotycSKdkp5d7
 
-  okta_secret: BdDmJv7dkD7dk-x3Fl9reS9w0bK0SRxGk5XuorgX
+  okta_secret: fpntsmfC4wwYNepDhLVlzZkA3tjLT3fMmYxeAefb
 
   okta_url: https://dev-66078042.okta.com
 
