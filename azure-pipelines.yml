@@ -4,6 +4,7 @@
 
 trigger:
 - master
+- feature/*
 
 resources:
 - repo: self
@@ -27,8 +28,19 @@ stages:
   - job: Build
     displayName: Build
     steps:
+    
+    # Only build if not in the master branch    
+    - task: Docker@2
+      displayName: Build on feature branch
+      condition: ne(variables['Build.SourceBranch'], 'refs/heads/master')
+      inputs:
+        command: 'build'
+        Dockerfile: '**/Dockerfile'
+
+    # Build and push if on the master branch
     - task: Docker@2
       displayName: Build and push an image to container registry
+      condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
       inputs:
         command: buildAndPush
         repository: $(imageRepository)
@@ -37,17 +49,21 @@ stages:
         tags: |
           $(tag)
 
+    # Install Helm on agent
     - task: HelmInstaller@0
       inputs:
         helmVersion: '2.14.1'
         installKubectl: true
+
+    # Package the helm chart into artifact    
     - task: HelmDeploy@0
+      displayName: Package helm chart
       inputs:
         command: 'package'
         chartPath: '$(Build.SourcesDirectory)/helm'
         chartVersion: '$(Build.BuildId)'
         
-
+    # Publish the helm chart artifact
     - task: PublishPipelineArtifact@1
       inputs:
         targetPath: '$(Build.ArtifactStagingDirectory)'
